@@ -15,39 +15,47 @@ class MyApp extends StatefulWidget {
 
 
 class Sales{
-  int year;
+  String year;
   int sales;
-  charts.Color color;
 
-  Sales(this.year, this.sales, this.color);
+  Sales({this.year, this.sales});
 }
 
 
 class _MyAppState extends State<MyApp> {
 
-  List<Sales> _data;
-  List<charts.Series<Sales, int>> _chartData;
-
+  List<Sales> _laptopData;
+  List<Sales> _desktopData;
+  List<charts.Series<Sales, String>> _chartData;
 
   void _makeData(){
-    _data = List<Sales>();
-    _chartData = List<charts.Series<Sales, int>>();
+    _laptopData = List<Sales>();
+    _desktopData = List<Sales>();
+    _chartData = List<charts.Series<Sales, String>>();
 
     final rnd = Random();
-    _data = <Sales>[
-      Sales(0, 100,  charts.MaterialPalette.red.shadeDefault),
-      Sales(1, 75,  charts.MaterialPalette.blue.shadeDefault),
-      Sales(2, 25,  charts.MaterialPalette.green.shadeDefault),
-      Sales(3, 10,  charts.MaterialPalette.yellow.shadeDefault),
-    ];
-
+    for(int i = 2010; i< 2018; i++){
+      _laptopData.add(Sales(year: '$i', sales: rnd.nextInt(1000)));
+      _desktopData.add(Sales(year: '$i', sales: rnd.nextInt(1000)));
+    }
 
     _chartData.add(charts.Series(
         id: 'Sales',
-        data: _data,
-        colorFn: (Sales sales, b) => sales.color,  // charts color
+        colorFn: (_, a) => charts.MaterialPalette.red.shadeDefault,  // charts color
+        data: _laptopData,
         domainFn: (Sales sales, b) => sales.year,
         measureFn: (Sales sales, _) => sales.sales,
+        fillPatternFn: (_, c) => charts.FillPatternType.forwardHatch, // fill type
+        displayName: "Sales"
+    ));
+    _chartData.add(charts.Series(
+        id: 'Sales',
+        colorFn: (_, a) => charts.MaterialPalette.green.shadeDefault,  // charts color
+        data: _desktopData,
+        domainFn: (Sales sales, b) => sales.year,
+        measureFn: (Sales sales, _) => sales.sales,
+        fillPatternFn: (_, c) => charts.FillPatternType.solid, // fill type
+        displayName: "Sales"
     ));
 
   }
@@ -73,10 +81,9 @@ class _MyAppState extends State<MyApp> {
               Text('Sales Data'),
 
               Expanded(
-                child: charts.PieChart(
+                child: charts.BarChart(
                   _chartData,
-                  animate: true,
-                  animationDuration: Duration(seconds: 3),
+                  // vertical: false, // to show horizontally
                 ),
               ),
             ],
