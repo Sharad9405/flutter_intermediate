@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter_intermediate/custom_widgets/child_to_parent/authenticator.dart';
+
 // get details back from child widget
 void main() => runApp(MaterialApp(
-      home: MyApp(),
-    ));
+  home: MyApp(),
+));
 
 class MyApp extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _MyAppState extends State<MyApp> {
 
   void _onAuthenticated(bool value){
     setState(() {
+      print('onAuthenticated : $value');
       _isAuthenticated = value;
     });
   }
@@ -24,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-      _isAuthenticated = false;
+    _isAuthenticated = false;
   }
 
 
@@ -32,7 +35,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Title'),
+        title: Text('Child To Parent'),
         backgroundColor: Colors.red,
       ),
       body: Container(
@@ -40,7 +43,8 @@ class _MyAppState extends State<MyApp> {
         child: Center(
           child: Column(
             children: <Widget>[
-              Text('Add widget here'),
+              Authenticator(onAuthenticated: _onAuthenticated,),
+              Text('Authenticated: $_isAuthenticated'),
             ],
           ),
         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'own_state_widget.dart';
 
-// get details back from child widget
 void main() => runApp(MaterialApp(
       home: MyApp(),
     ));
@@ -12,22 +11,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  bool _isAuthenticated;
-
-  void _onAuthenticated(bool value){
-    setState(() {
-      _isAuthenticated = value;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-      _isAuthenticated = false;
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +24,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: <Widget>[
               Text('Add widget here'),
+              OwnWidgetState(),
             ],
           ),
         ),

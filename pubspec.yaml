@@ -30,6 +30,11 @@ dependencies:
   cupertino_icons: ^1.0.1
   # charts
   charts_flutter: ^0.9.0
+  # intl
+  # redux
+  redux: ^4.0.0+3
+  # flutter redux
+  flutter_redux: ^0.7.0
 
 dev_dependencies:
   flutter_test:

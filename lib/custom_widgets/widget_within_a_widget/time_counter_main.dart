@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'time_counter.dart';
 
-// get details back from child widget
 void main() => runApp(MaterialApp(
       home: MyApp(),
     ));
@@ -12,27 +12,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  bool _isAuthenticated;
-
-  void _onAuthenticated(bool value){
-    setState(() {
-      _isAuthenticated = value;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-      _isAuthenticated = false;
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Title'),
+        title: Text('My Stop Watch'),
         backgroundColor: Colors.red,
       ),
       body: Container(
@@ -40,7 +24,8 @@ class _MyAppState extends State<MyApp> {
         child: Center(
           child: Column(
             children: <Widget>[
-              Text('Add widget here'),
+              Text('My Stop Watch'),
+              TimeCounter(),
             ],
           ),
         ),
